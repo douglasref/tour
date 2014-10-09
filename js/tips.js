@@ -14,6 +14,17 @@
         }
     $.fn.tips = function(options) {
         var settings = $.extend(defaults, options);
+        
+        $('body').after('<div id="tip-background"><span id="tip-text"></span></div>');
+        
+        if(this.css('position') === "static")
+            this.css({position: 'relative', top: 0, right: 0, left: 0});
+        
+        alert($(this).outerWidth(true));
+        
+        this.css({'z-index': 991});
+        $('#tip-text').html(settings.text);
+        //alert(settings.animation);
         return this;
     };
 }(jQuery));
