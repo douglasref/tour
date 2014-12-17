@@ -21,7 +21,9 @@ License Headers
         <div id="teste2" style="width: 400px; height: 100px; margin: 200px; background-color: green;"></div>
         <script type="text/javascript">
             $('#teste').tips({text: "click in red block to fade"}, function(){
-               $('#teste2').tips({text: "mouse hover in green block to fade", eventOut: 'hover'}); 
+               $('#teste2').tips({text: "mouse hover in green block to fade", eventOut: 'hover'}, function(){
+                   $('#teste').tips({text: "mouse hover in green block to fade", eventOut: 'hover'});
+               }); 
             });
         </script>
     </body>

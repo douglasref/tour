@@ -99,7 +99,15 @@
             label.fadeOut(time);
 
             label.remove();
+            
+            // Verifica se eh hover, pois neste caso precisa de 2 parametro
+            if(settings.eventOut === 'hover')
+                element.unbind('mouseenter mouseleave');
+            else
+                element.unbind(settings.eventOut);
+            
             if(jQuery.isFunction(callback)){
+                //element.fn.tips = null;
                 callback();
             }
             countTips = $('.tip-text').length;
