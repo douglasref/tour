@@ -95,16 +95,20 @@
             switch(settings.eventOut){
                 case 'change':
                     $(element).change(function(){_destroy();});
+                    label.change(function(){return false;});
                     break;
                 case 'hover':
                     $(element).hover(function(){_destroy();}, function(){return false;});
+                    label.hover(function(){return false;});
                     break;
                 case 'keydown':
                     $(element).keydown(function(){_destroy();});
+                    label.keydown(function(){return false;});
                     break;
                 case 'click':
                 default:
                     $(element).click(function(){_destroy();});
+                    label.click(function(){return false;});
             }
         }
         function _destroy(){
