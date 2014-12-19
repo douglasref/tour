@@ -20,6 +20,10 @@
         }
     }
     $.fn.tips = function(options, callback) {
+        // if not exists
+        if(this.length === 0)
+            return null;
+        
         $(this).append('<span class="tip-text"></span>');
             var settings = $.extend(defaults, options);
         if($('#tip-background').length <= 0)
