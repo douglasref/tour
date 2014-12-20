@@ -10,6 +10,7 @@
         anyElementInteraction: true,
         spacing: 20,
         minHeightLabel: 100,
+        timeFade: 170,
         functionInit: function() {
         },
         functionBefore: function() {
@@ -48,12 +49,13 @@
         var shadowOriginal = element.css('box-shadow');
 
         this.css({'z-index': 991});
-        this.css('box-shadow', '0 0 20px #555'); // apply shadow
+        this.css('box-shadow', '0px 0px 0px px #fff'); // apply shadow
         
-        var label = $(this).find('.tip-text').html(settings.text);
+        // set var label and hide
+        var label = $(this).find('.tip-text').html(settings.text).hide();
         var pos = _position(label);
         
-        $(label).css({position: 'absolute', top: pos.top, left: pos.left});
+        $(label).css({position: 'absolute', top: pos.top, left: pos.left}).fadeIn(settings.timeFade);
         _setEventOut();
         //alert(settings.animation);
         return this;
@@ -116,34 +118,33 @@
         }
         function _destroy(){
             var countTips = $('.tip-text').length;
-            var time = 300;
 
-            label.fadeOut(time);
+            label.fadeOut(settings.timeFade, function(){
+               label.remove();
+            
+                // verifies that is hover, because in this case need 2 parameter
+                if(settings.eventOut === 'hover')
+                    element.unbind('mouseenter mouseleave');
+                else
+                    element.unbind(settings.eventOut);
 
-            label.remove();
-            
-            // verifies that is hover, because in this case need 2 parameter
-            if(settings.eventOut === 'hover')
-                element.unbind('mouseenter mouseleave');
-            else
-                element.unbind(settings.eventOut);
-            
-            // retrieves the zindex and shadown
-            element.css({'z-index': zIndexOriginal});
-            element.css('box-shadow', shadowOriginal);
-            
-            // verifies callback
-            if(jQuery.isFunction(callback)){
-                //element.fn.tips = null;
-                callback();
-            }
-            countTips = $('.tip-text').length;
-            if (countTips === 0) {
-                bg.fadeOut(time);
-                window.setInterval(function() {
-                    bg.remove();
-                }, time);
-            }
+                // retrieves the zindex and shadown
+                element.css({'z-index': zIndexOriginal});
+                element.css('box-shadow', shadowOriginal);
+
+                // verifies callback
+                if(jQuery.isFunction(callback)){
+                    //element.fn.tips = null;
+                    callback();
+                }
+                countTips = $('.tip-text').length;
+                if (countTips === 0) {
+                    bg.fadeOut(settings.timeFade);
+                    window.setInterval(function() {
+                        bg.remove();
+                    }, settings.timeFade);
+                } 
+            });
         }
     };
 }(jQuery));
