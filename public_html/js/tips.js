@@ -49,7 +49,7 @@
         var shadowOriginal = element.css('box-shadow');
 
         this.css({'z-index': 991});
-        this.css('box-shadow', '0px 0px 0px px #fff'); // apply shadow
+        this.css('box-shadow', '0px 0px 0px 2px #fff'); // apply shadow
         
         // set var label and hide
         var label = $(this).find('.tip-text').html(settings.text).hide();
