@@ -44,9 +44,12 @@
         var spaceLeft = $(window).width() - (width + spaceRight);
         var spaceBottom = $(window).height() - (offsetY + height);
         var spaceTop = $(window).height() - (height + spaceBottom);
-        var zIndexBg = element.css('z-index');
+        var zIndexOriginal = element.css('z-index');
+        var shadowOriginal = element.css('box-shadow');
 
         this.css({'z-index': 991});
+        this.css('box-shadow', '0 0 20px #555'); // apply shadow
+        
         var label = $(this).find('.tip-text').html(settings.text);
         var pos = _position(label);
         
@@ -125,8 +128,9 @@
             else
                 element.unbind(settings.eventOut);
             
-            // retrieves the zindex
-            element.css({'z-index': zIndexBg});
+            // retrieves the zindex and shadown
+            element.css({'z-index': zIndexOriginal});
+            element.css('box-shadow', shadowOriginal);
             
             // verifies callback
             if(jQuery.isFunction(callback)){
